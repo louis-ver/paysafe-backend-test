@@ -22,7 +22,7 @@ public class MonitoringService {
     if (server == null) {
       Server newServer = new Server(url, interval);
       newServer.startPing();
-      this.servers.put(newServer.getHost(), newServer);
+      this.servers.put(newServer.getUrl(), newServer);
       return newServer;
     } else {
       server.setInterval(interval);
