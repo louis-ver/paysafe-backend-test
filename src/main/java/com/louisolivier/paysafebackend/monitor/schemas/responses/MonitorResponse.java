@@ -1,4 +1,4 @@
-package com.louisolivier.paysafebackend.monitor.responses;
+package com.louisolivier.paysafebackend.monitor.schemas.responses;
 
 import com.louisolivier.paysafebackend.monitor.MonitorStatus;
 

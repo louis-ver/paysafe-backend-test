@@ -1,15 +1,16 @@
-package com.louisolivier.paysafebackend.monitor.requests;
+package com.louisolivier.paysafebackend.monitor.schemas.requests;
 
 import javax.validation.constraints.*;
 
 public class RequestBodyServer {
+
+  public static final Integer DEFAULT_INTERVAL = 10;
   @NotNull(message = "`url` is a required field.")
+  @NotEmpty(message = "`url` cannot be blank.")
   public String url;
-  @NotNull(message = "`interval` is a required field.")
   @Min(1)
   @Max(100000)
-
-  public Integer interval;
+  public Integer interval = DEFAULT_INTERVAL;
 
   public RequestBodyServer() {}
   public RequestBodyServer(String url, Integer interval) {

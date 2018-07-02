@@ -1,12 +1,11 @@
 package com.louisolivier.paysafebackend.monitor;
 
 import com.louisolivier.paysafebackend.monitor.exceptions.BadRequestException;
-import com.louisolivier.paysafebackend.monitor.requests.RequestBodyServer;
-import com.louisolivier.paysafebackend.monitor.requests.RequestBodyURL;
-import com.louisolivier.paysafebackend.monitor.responses.MonitorResponse;
-import com.louisolivier.paysafebackend.monitor.responses.UptimeReport;
+import com.louisolivier.paysafebackend.monitor.schemas.requests.RequestBodyServer;
+import com.louisolivier.paysafebackend.monitor.schemas.requests.RequestBodyURL;
+import com.louisolivier.paysafebackend.monitor.schemas.responses.MonitorResponse;
+import com.louisolivier.paysafebackend.monitor.schemas.responses.UptimeReport;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import javax.xml.ws.http.HTTPBinding;
 
 @RestController
 public class MonitorController {
@@ -34,8 +32,8 @@ public class MonitorController {
 
   @GetMapping("/uptime")
   public UptimeReport uptime(@RequestParam(value = "url") String url) {
-    Server server = MonitoringService.getInstance().getServerByURL(url);
-    return new UptimeReport(server.latestStatus(), server.getStatuses(),server.lastDowntime() != null);
+    Server server = MonitoringService.getInstance().getServerByUrl(url);
+    return new UptimeReport(server);
   }
 
   @ExceptionHandler(MethodArgumentNotValidException.class)

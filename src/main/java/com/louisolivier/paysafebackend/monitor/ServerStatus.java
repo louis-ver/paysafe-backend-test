@@ -30,4 +30,9 @@ public class ServerStatus {
   public void setTime(Date time) {
     this.time = time;
   }
+
+  @Override
+  public String toString() {
+    return status.equals(Status.UP) ? "up" : "down";
+  }
 }
