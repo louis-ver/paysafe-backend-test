@@ -1,31 +1,51 @@
 package com.louisolivier.paysafebackend.monitor;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class ApiError {
+
+  private Date timestamp;
   private HttpStatus status;
-  private LocalDateTime timestamp;
   private String message;
-  private String debugMessage;
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  private List<String> errors = new ArrayList<>();
+  private String path;
 
-  private ApiError() {
-    timestamp = LocalDateTime.now();
-  }
-
-  ApiError(HttpStatus status) {
-    this(status, null, null);
-  }
-
-  ApiError(HttpStatus status, Throwable ex) {
-    this(status, "Unexpected error", ex);
-  }
-
-  ApiError(HttpStatus status, String message, Throwable ex) {
+  public ApiError(HttpStatus status, String message, String path) {
+    this.timestamp = new Date();
     this.status = status;
     this.message = message;
-    this.debugMessage = ex.getLocalizedMessage();
+    this.path = path;
+  }
+
+  public void addValidationError(String error) {
+    errors.add(error);
+  }
+
+  public List<String> getErrors() {
+    return errors;
+  }
+
+  public String getMessage() { return message; }
+
+  public Integer getStatus() { return status.value(); }
+
+  public String getPath() { return path; }
+
+  public Date getTimestamp() { return timestamp; }
+
+  public static ApiError fromBindingErrors(Errors errors, HttpStatus status, String path) {
+    ApiError error = new ApiError(status, "Validation failed. " + errors.getErrorCount() + " error(s)", path);
+    for (ObjectError objectError : errors.getAllErrors()) {
+      error.addValidationError(objectError.getDefaultMessage());
+    }
+    return error;
   }
 }

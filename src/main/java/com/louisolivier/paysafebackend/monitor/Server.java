@@ -1,10 +1,7 @@
 package com.louisolivier.paysafebackend.monitor;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.louisolivier.paysafebackend.monitor.exceptions.*;
-import org.apache.commons.validator.routines.UrlValidator;
 
 import java.io.IOException;
 import java.net.*;
@@ -19,7 +16,7 @@ import static com.louisolivier.paysafebackend.monitor.constants.Constants.*;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Server {
   private URL url;
-  private Integer interval;
+  private Integer interval = DEFAULT_INTERVAL;
   private Stack<ServerStatus> statuses = new Stack<>();
   private ScheduledExecutorService executor;
   private final Runnable healthCheck = () -> {
