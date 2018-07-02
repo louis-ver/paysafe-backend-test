@@ -1,7 +1,7 @@
 package com.louisolivier.paysafebackend.monitor.schemas.responses;
 
-import com.louisolivier.paysafebackend.monitor.Server;
-import com.louisolivier.paysafebackend.monitor.ServerStatus;
+import com.louisolivier.paysafebackend.monitor.models.Server;
+import com.louisolivier.paysafebackend.monitor.models.ServerStatus;
 
 import java.util.List;
 

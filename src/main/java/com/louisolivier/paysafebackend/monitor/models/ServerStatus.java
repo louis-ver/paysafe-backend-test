@@ -1,4 +1,4 @@
-package com.louisolivier.paysafebackend.monitor;
+package com.louisolivier.paysafebackend.monitor.models;
 
 import java.util.Date;
 

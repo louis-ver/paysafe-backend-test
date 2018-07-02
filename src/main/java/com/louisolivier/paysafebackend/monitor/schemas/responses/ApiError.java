@@ -1,4 +1,4 @@
-package com.louisolivier.paysafebackend.monitor;
+package com.louisolivier.paysafebackend.monitor.schemas.responses;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.http.HttpStatus;

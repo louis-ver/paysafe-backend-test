@@ -1,6 +1,7 @@
 package com.louisolivier.paysafebackend.monitor;
 
 import com.louisolivier.paysafebackend.monitor.exceptions.ServerNotMonitoredException;
+import com.louisolivier.paysafebackend.monitor.models.Server;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +30,19 @@ public class MonitoringService {
       server.setInterval(interval);
       server.startPing();
       return server;
+    }
+  }
+
+  synchronized void changeMonitoring(String url, Integer interval) {
+    String hostname = Server.getHostnameFromURL(url);
+    Server server = this.servers.get(hostname);
+    if (server == null) {
+      throw new ServerNotMonitoredException(String.format("Server at '%s' is not currently being monitored.", url));
+    }
+    else {
+      server.setInterval(interval);
+      server.startPing();
+      this.servers.put(hostname, server);
     }
   }
 

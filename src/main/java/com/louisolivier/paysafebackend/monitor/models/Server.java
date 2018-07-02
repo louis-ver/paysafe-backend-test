@@ -1,6 +1,5 @@
-package com.louisolivier.paysafebackend.monitor;
+package com.louisolivier.paysafebackend.monitor.models;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.louisolivier.paysafebackend.monitor.exceptions.*;
 
 import java.io.IOException;
@@ -11,7 +10,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Server {
   private URL url;
   private Integer interval;
@@ -81,15 +79,6 @@ public class Server {
     return this.statuses.getLast();
   }
 
-  public Long lastDowntime() {
-    for (ServerStatus status: this.statuses) {
-      if (status.getStatus().equals(ServerStatus.Status.DOWN)) {
-        return status.getTime();
-      }
-    }
-    return null;
-  }
-
   public Long getTimeSinceStatusChange() {
     for (ServerStatus status: this.statuses) {
       if (status.getStatus() != latestStatus().getStatus()) {
@@ -127,7 +116,6 @@ public class Server {
     return String.format(
             format,
             TimeUnit.MILLISECONDS.toMinutes(time),
-            TimeUnit.MILLISECONDS.toSeconds(time) -
-                    TimeUnit.MINUTES.toSeconds((TimeUnit.MILLISECONDS.toMinutes(time))));
+            TimeUnit.MILLISECONDS.toSeconds(time) - TimeUnit.MINUTES.toSeconds((TimeUnit.MILLISECONDS.toMinutes(time))));
   }
 }
