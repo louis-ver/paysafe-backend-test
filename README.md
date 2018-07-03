@@ -2,7 +2,7 @@
 
 Monitor is a REST monitoring service that checks for server status at a given URL and interval.
 
-## Usage
+## Installation
 
 You can start the server directly on your machine, or inside docker.
 
@@ -19,7 +19,7 @@ $ ./run
 $ git clone https://github.com/louis-ver/paysafe-backend-test.git && cd paysafe-backend-test
 $ ./docker-run
 ```
-## API
+## Usage (API)
 
 ### `/start`
 
