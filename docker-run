@@ -1,0 +1,5 @@
+#!/bin/sh
+
+./mvnw clean package
+docker build -t paysafe_backend_test .
+docker run --rm  -p 8080:8080 --name="monitoring_service" paysafe_backend_test

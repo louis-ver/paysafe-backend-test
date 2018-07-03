@@ -9,7 +9,15 @@ You can start the server directly on your machine, or inside docker.
 ### On Your Machine
 
 ```
-$ git clone https
+$ git clone https://github.com/louis-ver/paysafe-backend-test.git && cd paysafe-backend-test
+$ ./run
+```
+
+### On Docker
+
+```
+$ git clone https://github.com/louis-ver/paysafe-backend-test.git && cd paysafe-backend-test
+$ ./docker-run
 ```
 ## API
 
