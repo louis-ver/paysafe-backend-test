@@ -32,14 +32,14 @@ You can start the server directly on your machine, or inside docker.
 
 ```
 $ git clone https://github.com/louis-ver/paysafe-backend-test.git && cd paysafe-backend-test
-$ ./run
+$ bin/run
 ```
 
 ### In Docker
 
 ```
 $ git clone https://github.com/louis-ver/paysafe-backend-test.git && cd paysafe-backend-test
-$ ./docker-run
+$ bin/docker-run
 ```
 ## Usage (API)
 
