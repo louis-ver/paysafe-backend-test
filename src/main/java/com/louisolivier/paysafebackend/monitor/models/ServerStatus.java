@@ -10,6 +10,7 @@ public class ServerStatus {
   private Status status;
   private Date time;
 
+  public ServerStatus() {}
   public ServerStatus(Status status, Date time) {
     this.status = status;
     this.time = time;
@@ -33,6 +34,6 @@ public class ServerStatus {
 
   @Override
   public String toString() {
-    return status.equals(Status.UP) ? "up" : "down";
+    return status.toString().toLowerCase();
   }
 }

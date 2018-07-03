@@ -15,7 +15,7 @@ public class Server {
   private Integer interval;
   private LinkedList<ServerStatus> statuses = new LinkedList<>();
   private ScheduledExecutorService executor;
-  private final Runnable healthCheck = () -> {
+  private Runnable healthCheck = () -> {
     try (Socket s = new Socket(url.getHost(), 80)) {
       System.out.println(String.format("url: %s, status: up", url));
       statuses.add(new ServerStatus(ServerStatus.Status.UP, new Date()));
@@ -58,6 +58,14 @@ public class Server {
 
   public LinkedList<ServerStatus> getStatuses() {
     return statuses;
+  }
+
+  public void setStatuses(LinkedList<ServerStatus> statuses) {
+    this.statuses = statuses;
+  }
+
+  public void setHealthCheck(Runnable healthCheck) {
+    this.healthCheck = healthCheck;
   }
 
   public void startPing() {

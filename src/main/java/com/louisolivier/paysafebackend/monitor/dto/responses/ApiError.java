@@ -1,4 +1,4 @@
-package com.louisolivier.paysafebackend.monitor.schemas.responses;
+package com.louisolivier.paysafebackend.monitor.dto.responses;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.http.HttpStatus;
@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiError {
 
   private Date timestamp;
@@ -18,6 +19,7 @@ public class ApiError {
   private List<String> errors = new ArrayList<>();
   private String path;
 
+  public ApiError() {}
   public ApiError(HttpStatus status, String message, String path) {
     this.timestamp = new Date();
     this.status = status;

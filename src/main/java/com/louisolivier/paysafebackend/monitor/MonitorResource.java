@@ -3,13 +3,12 @@ package com.louisolivier.paysafebackend.monitor;
 import com.louisolivier.paysafebackend.monitor.exceptions.BadRequestException;
 import com.louisolivier.paysafebackend.monitor.models.MonitorStatus;
 import com.louisolivier.paysafebackend.monitor.models.Server;
-import com.louisolivier.paysafebackend.monitor.schemas.requests.PayloadServer;
-import com.louisolivier.paysafebackend.monitor.schemas.requests.PayloadUrl;
-import com.louisolivier.paysafebackend.monitor.schemas.responses.ApiError;
-import com.louisolivier.paysafebackend.monitor.schemas.responses.MonitorResponse;
-import com.louisolivier.paysafebackend.monitor.schemas.responses.UptimeReport;
+import com.louisolivier.paysafebackend.monitor.dto.requests.ServerDto;
+import com.louisolivier.paysafebackend.monitor.dto.requests.URLDto;
+import com.louisolivier.paysafebackend.monitor.dto.responses.ApiError;
+import com.louisolivier.paysafebackend.monitor.dto.responses.MonitorDto;
+import com.louisolivier.paysafebackend.monitor.dto.responses.ReportDto;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
@@ -19,31 +18,31 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @RestController
-public class MonitorController {
+public class MonitorResource {
   @PostMapping("/start")
   @ResponseStatus(value = HttpStatus.CREATED)
-  public MonitorResponse start(@Valid @RequestBody PayloadServer srv, HttpServletRequest req, HttpServletResponse resp) {
+  public MonitorDto start(@Valid @RequestBody ServerDto srv, HttpServletRequest req, HttpServletResponse resp) {
     Server server = MonitoringService.getInstance().startMonitoring(srv.url, srv.interval);
     resp.setHeader("Location", "/report?" + srv.url);
-    return new MonitorResponse(server.getUrl(), MonitorStatus.MONITORING);
+    return new MonitorDto(server.getUrl(), MonitorStatus.MONITORING);
   }
 
   @PatchMapping("/start")
   @ResponseStatus(value = HttpStatus.NO_CONTENT)
-  public void start(@Valid @RequestBody PayloadServer srv) {
+  public void start(@Valid @RequestBody ServerDto srv) {
     MonitoringService.getInstance().changeMonitoring(srv.url, srv.interval);
   }
 
   @PostMapping("/stop")
-  public MonitorResponse stop(@Valid @RequestBody PayloadUrl url) {
+  public MonitorDto stop(@Valid @RequestBody URLDto url) {
     Server server = MonitoringService.getInstance().stopMonitoring(url.url);
-    return new MonitorResponse(server.getUrl(), MonitorStatus.STOPPED);
+    return new MonitorDto(server.getUrl(), MonitorStatus.STOPPED);
   }
 
   @GetMapping("/report")
-  public UptimeReport uptime(@RequestParam(value = "url") String url) {
+  public ReportDto uptime(@RequestParam(value = "url") String url) {
     Server server = MonitoringService.getInstance().getServerByUrl(url);
-    return new UptimeReport(server);
+    return new ReportDto(server);
   }
 
   @ExceptionHandler(MethodArgumentNotValidException.class)

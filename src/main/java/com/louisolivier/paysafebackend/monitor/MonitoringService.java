@@ -1,5 +1,6 @@
 package com.louisolivier.paysafebackend.monitor;
 
+import com.louisolivier.paysafebackend.monitor.exceptions.ServerAlreadyMonitoredException;
 import com.louisolivier.paysafebackend.monitor.exceptions.ServerNotMonitoredException;
 import com.louisolivier.paysafebackend.monitor.models.Server;
 
@@ -11,7 +12,7 @@ public class MonitoringService {
 
   private static MonitoringService ourInstance = new MonitoringService();
 
-  static MonitoringService getInstance() {
+  public static MonitoringService getInstance() {
     return ourInstance;
   }
 
@@ -27,9 +28,7 @@ public class MonitoringService {
       this.servers.put(hostname, newServer);
       return newServer;
     } else {
-      server.setInterval(interval);
-      server.startPing();
-      return server;
+      throw new ServerAlreadyMonitoredException("Server at `url` is already being monitored.");
     }
   }
 
@@ -58,5 +57,13 @@ public class MonitoringService {
       throw new ServerNotMonitoredException(String.format("Server at '%s' is not currently being monitored.", url));
     }
     return server;
+  }
+
+  public Map<String, Server> getServers() {
+    return servers;
+  }
+
+  public void addServer(Server server) {
+    this.servers.put(Server.getHostnameFromURL(server.getUrl()), server);
   }
 }

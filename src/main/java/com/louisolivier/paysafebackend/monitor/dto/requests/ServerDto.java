@@ -1,8 +1,8 @@
-package com.louisolivier.paysafebackend.monitor.schemas.requests;
+package com.louisolivier.paysafebackend.monitor.dto.requests;
 
 import javax.validation.constraints.*;
 
-public class PayloadServer {
+public class ServerDto {
 
   public static final Integer DEFAULT_INTERVAL = 10;
   @NotNull(message = "`url` is a required field.")
@@ -12,8 +12,8 @@ public class PayloadServer {
   @Max(100000)
   public Integer interval = DEFAULT_INTERVAL;
 
-  public PayloadServer() {}
-  public PayloadServer(String url, Integer interval) {
+  public ServerDto() {}
+  public ServerDto(String url, Integer interval) {
     this.url = url;
     this.interval = interval;
   }
