@@ -13,7 +13,7 @@ $ git clone https://github.com/louis-ver/paysafe-backend-test.git && cd paysafe-
 $ ./run
 ```
 
-### On Docker
+### In Docker
 
 ```
 $ git clone https://github.com/louis-ver/paysafe-backend-test.git && cd paysafe-backend-test
