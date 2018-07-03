@@ -2,6 +2,28 @@
 
 Monitor is a REST monitoring service that checks for server status at a given URL and interval.
 
+## Table of Contents
+
+- [Installation](#installation)
+  - [On Your Machine](#on-your-machine)
+  - [In Docker](#in-docker)
+- [Usage (API)](#usage-api)
+  - [/start](#start)
+    - [POST](#post-1)
+      - [Payload](#payload-1)
+      - [Example](#example-1)
+    - [PATCH](#patch)
+      - [Payload](#payload-2)
+      - [Example](#example-2)
+  - [/stop](#stop)
+    - [POST](#post-2)
+      - [Payload](#payload-3)
+      - [Example](#example-3)
+  - [/uptime](#uptime)
+    - [GET](#get)
+      - [Parameters](#parameters)
+      - [Example](#example-4)
+  
 ## Installation
 
 You can start the server directly on your machine, or inside docker.
@@ -27,7 +49,7 @@ $ ./docker-run
 Starts monitoring a server. The URL and interval of the server are given in the body of the request.
 
 
-#### Payload
+##### Payload
 ```
 {
   url: URL,
@@ -51,7 +73,7 @@ curl -X "POST" "http://localhost:8080/start" \
 
 Modifies the interval at which the server status is checked.
 
-#### Payload
+##### Payload
 
 ```
 {
@@ -62,7 +84,7 @@ Modifies the interval at which the server status is checked.
 - `url`: URL of the monitored server for which we want to modify the interval
 - `interval`: Integer, between 1 and 100000
 
-##### Example
+###### Example
 ```
 curl -X "PATCH" "http://localhost:8080/start" \
      -H 'Content-Type: application/json; charset=utf-8' \
@@ -78,7 +100,7 @@ curl -X "PATCH" "http://localhost:8080/start" \
 
 Stops monitoring the server at the specified URL.
 
-#### Payload
+##### Payload
 ```
 {
   url: URL
@@ -86,7 +108,7 @@ Stops monitoring the server at the specified URL.
 ```
 - `url`: URL of the monitored server for which we want to stop monitoring
 
-##### Example
+###### Example
 ```
 curl -X "POST" "http://localhost:8080/stop" \
      -H 'Content-Type: application/json; charset=utf-8' \
@@ -101,11 +123,11 @@ curl -X "POST" "http://localhost:8080/stop" \
 
 Returns current status information on the requested URL.
 
-#### Parameters
+##### Parameters
 
 `url`: URL of the monitored server for which we want a summary
 
-##### Example
+###### Example
 ```
 curl "http://localhost:8080/uptime?url=https:%2F%2Fapi.test.paysafe.com%2Faccountmanagement%2Fmonitor"
 ```
