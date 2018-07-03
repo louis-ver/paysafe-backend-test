@@ -9,6 +9,7 @@ import com.louisolivier.paysafebackend.monitor.schemas.responses.ApiError;
 import com.louisolivier.paysafebackend.monitor.schemas.responses.MonitorResponse;
 import com.louisolivier.paysafebackend.monitor.schemas.responses.UptimeReport;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
@@ -61,11 +62,5 @@ public class MonitorController {
   @ResponseStatus(value = HttpStatus.BAD_REQUEST)
   public ApiError handleInvalidPost(BadRequestException exception, HttpServletRequest req) {
     return new ApiError(HttpStatus.BAD_REQUEST, exception.getMessage(), req.getRequestURI());
-  }
-
-  @ExceptionHandler(Exception.class)
-  @ResponseStatus()
-  public ApiError handleUnexpectedErrors(Exception exception, HttpServletRequest req) {
-    return new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage(), req.getRequestURI());
   }
 }

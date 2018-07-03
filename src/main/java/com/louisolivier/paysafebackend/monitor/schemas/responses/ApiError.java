@@ -33,6 +33,8 @@ public class ApiError {
     return errors;
   }
 
+  public String getError() { return status.getReasonPhrase(); }
+
   public String getMessage() { return message; }
 
   public Integer getStatus() { return status.value(); }
