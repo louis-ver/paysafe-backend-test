@@ -19,7 +19,7 @@ Monitor is a REST monitoring service that checks for server status at a given UR
     - [POST](#post-1)
       - [Payload](#payload-2)
       - [Example](#example-2)
-  - [/uptime](#uptime)
+  - [/report](#uptime)
     - [GET](#get)
       - [Parameters](#parameters)
       - [Example](#example-3)
@@ -117,7 +117,7 @@ curl -X "POST" "http://localhost:8080/stop" \
 }'
 ```
 
-### `/uptime`
+### `/report`
 
 #### GET
 
@@ -129,5 +129,5 @@ Returns current status information on the requested URL.
 
 ###### Example
 ```
-curl "http://localhost:8080/uptime?url=https:%2F%2Fapi.test.paysafe.com%2Faccountmanagement%2Fmonitor"
+curl "http://localhost:8080/report?url=https:%2F%2Fapi.test.paysafe.com%2Faccountmanagement%2Fmonitor"
 ```

@@ -24,7 +24,7 @@ public class MonitorController {
   @ResponseStatus(value = HttpStatus.CREATED)
   public MonitorResponse start(@Valid @RequestBody PayloadServer srv, HttpServletRequest req, HttpServletResponse resp) {
     Server server = MonitoringService.getInstance().startMonitoring(srv.url, srv.interval);
-    resp.setHeader("Location", "/uptime?" + srv.url);
+    resp.setHeader("Location", "/report?" + srv.url);
     return new MonitorResponse(server.getUrl(), MonitorStatus.MONITORING);
   }
 
@@ -40,7 +40,7 @@ public class MonitorController {
     return new MonitorResponse(server.getUrl(), MonitorStatus.STOPPED);
   }
 
-  @GetMapping("/uptime")
+  @GetMapping("/report")
   public UptimeReport uptime(@RequestParam(value = "url") String url) {
     Server server = MonitoringService.getInstance().getServerByUrl(url);
     return new UptimeReport(server);
